@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Ruby Catalog Of My Things
+# Rails Chat App - RCA
 
 Rails Chat App is a fully-fledged Rails Group Chat Room and Private Chat web based platform. It’s modern and user-friendly design makes the app a feature-rich community and social platform seamlessly. Rails Chat App Chat provides the best approach to hold chat discussions on a website. It Chat comes with all the features that you will ever need. It comes with a responsive design for your users to experience the best online group chat.
 
