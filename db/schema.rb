@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_14_152213) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_14_155655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_groups_on_name", unique: true
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "user_id", null: false
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_messages_on_group_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,4 +45,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_14_152213) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "messages", "groups"
+  add_foreign_key "messages", "users"
 end
