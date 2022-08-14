@@ -8,6 +8,8 @@ class GroupsController < ApplicationController
 
   # GET /groups/1 or /groups/1.json
   def show
+    @message = Message.new group: @group
+    @messages = @group.messages.includes(:user)
   end
 
   # GET /groups/new
@@ -48,14 +50,14 @@ class GroupsController < ApplicationController
   end
 
   # DELETE /groups/1 or /groups/1.json
-  def destroy
-    @group.destroy
+  # def destroy
+  #   @group.destroy
 
-    respond_to do |format|
-      format.html { redirect_to groups_url, notice: "Group was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to groups_url, notice: "Group was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

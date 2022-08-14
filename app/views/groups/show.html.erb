@@ -1,10 +1,53 @@
-<p style="color: green"><%= notice %></p>
+<h1>
+  <%= @group.name %>
+</h1>
 
-<%= render @group %>
+<div class="row">
+  <div class="col-12 col-md-3">
+    <%= render @group %>
+  </div>
 
-<div>
-  <%= link_to "Edit this group", edit_group_path(@group) %> |
-  <%= link_to "Back to groups", groups_path %>
+  <div class="col">
+    <div class="chat">
+      <% @messages.each do |message| %>
+        <div class="chat-message-container">
+          <div class="row no-gutters">
+            <div class="col-auto text-center">
+              <img src="<%= gravatar_url(message.user) %>" class="avatar" alt="">
+            </div>
 
-  <%= button_to "Destroy this group", @group, method: :delete %>
+            <div class="col">
+              <div class="message-content">
+                <p class="mb-1">
+                  <%= message.message %>
+                </p>
+
+                <div class="text-right">
+                  <small>
+                    <%= message.created_at %>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= simple_form_for @message, remote: true do |form| %>
+      <div class="input-group mb-3">
+        <%= form.input :message, as: :string,
+                                 wrapper: false,
+                                 label: false,
+                                 input_html: {
+                                   class: 'chat-input'
+                                 } %>
+        <div class="input-group-append">
+          <%= form.submit "Send", class: 'btn btn-primary chat-input' %>
+        </div>
+      </div>
+
+      <%= form.input :group_id, as: :hidden %>
+    <% end %>
+  </div>
 </div>
