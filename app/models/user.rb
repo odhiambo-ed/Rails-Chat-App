@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   validates :username, uniqueness: true, presence: true
 
-  has_many :room_messages,
+  has_many :messages,
            dependent: :destroy
 
   def gravatar_url
