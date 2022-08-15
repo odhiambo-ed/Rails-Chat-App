@@ -11,9 +11,7 @@
 
     <% if @groups.present? %>
       <nav class="nav flex-column">
-        <% @groups.each do |group| %>
-          <%= link_to group.name, group_path(group), class: "nav-link group-nav-link" %>
-        <% end %>
+        <%= turbo_stream_from "groups" %>
       </nav>
     <% else %>
       <div class="text-muted">

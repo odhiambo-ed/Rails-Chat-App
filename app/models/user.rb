@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   validates :username, uniqueness: true, presence: true
 
+  after_create_commit { broadcast_append_to 'users' }
+
   has_many :messages,
            dependent: :destroy
 
