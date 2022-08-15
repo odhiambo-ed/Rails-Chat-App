@@ -37,6 +37,8 @@ class MessagesController < ApplicationController
     @message = Message.create user: current_user,
                                        group: @group,
                                        message: params.dig(:message, :message)
+
+    GroupChannel.broadcast_to @group, @message
   end
 
   # PATCH/PUT /messages/1 or /messages/1.json
