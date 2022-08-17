@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
   def show
     @message = Message.new group: @group
     @messages = @group.messages.includes(:user)
+    @single_group = Group.find(params[:id])
   end
 
   # GET /groups/new

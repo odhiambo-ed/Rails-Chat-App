@@ -3,53 +3,57 @@
 </h1>
 
 <div class="row">
-  <div class="col-12 col-md-3">
+  <div class="col-12 col-md-3" id="groups">
     <%= render @group %>
   </div>
 
-  <div class="col">
-    <div class="chat" data-channel-subscribe="group" data-group-id="<%= @group.id %>">
-      <% @messages.each do |message| %>
-        <div class="chat-message-container">
-          <div class="row no-gutters">
-            <div class="col-auto text-center">
-              <img src="<%= message.user.gravatar_url %>" class="avatar" alt="">
-            </div>
+  <% if @single_group %>
+    <div class="col">
+      <%= turbo_stream_from @single_room %>
+      <div class="chat" data-channel-subscribe="group" data-group-id="<%= @group.id %>" id="<% @message.id %>">
+        <% @messages.each do |message| %>
+          <div class="chat-message-container">
+            <div class="row no-gutters">
+              <div class="col-auto text-center">
+                <img src="<%= message.user.gravatar_url %>" class="avatar" alt="">
+              </div>
 
-            <div class="col">
-              <div class="message-content">
-                <p class="mb-1">
-                  <%= message.message %>
-                </p>
+              <div class="col">
+                <div class="message-content">
+                  <p class="mb-1">
+                    <%= message.message %>
+                  </p>
 
-                <div class="text-right">
-                  <small>
-                    <%= message.created_at %>
-                  </small>
+                  <div class="text-right">
+                    <small>
+                      <%= message.created_at %>
+                    </small>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
-
-    <%= simple_form_for @message, remote: true do |form| %>
-      <div class="input-group mb-3">
-        <%= form.input :message, as: :string,
-                                 wrapper: false,
-                                 label: false,
-                                 input_html: {
-                                   class: 'chat-input'
-                                 } %>
-        <div class="input-group-append">
-          <%= form.submit "Send", class: 'btn btn-primary chat-input' %>
-        </div>
+        <% end %>
       </div>
 
-      <%= form.input :group_id, as: :hidden %>
-    <% end %>
-  </div>
+      <%= simple_form_for @message, remote: true do |form| %>
+        <div class="input-group mb-3">
+          <%= form.input :message, as: :string,
+                                  wrapper: false,
+                                  label: false,
+                                  input_html: {
+                                    class: 'chat-input'
+                                  } %>
+          <div class="input-group-append">
+            <%= form.submit "Send", class: 'btn btn-primary chat-input' %>
+          </div>
+        </div>
+
+        <%= form.input :group_id, as: :hidden %>
+      <% end %>
+    </div>
+  <% end %>
+
 </div>
 
 <div class="d-none" data-role="message-template">
