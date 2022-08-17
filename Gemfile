@@ -76,4 +76,3 @@ end
 
 gem 'simple_form', '~> 5.1'
 gem "dartsass-rails", "~> 0.4.0"
-gem 'redis', '~> 4.7', '>= 4.7.1'
